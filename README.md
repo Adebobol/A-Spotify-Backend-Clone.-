@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # A-Spotify-Backend-Clone.-
 Creating a Spotify Web clone using nestjs, typescript, MySQL and typeorm. 
 =======
@@ -87,4 +86,3 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
->>>>>>> f77935c (initial commit)
