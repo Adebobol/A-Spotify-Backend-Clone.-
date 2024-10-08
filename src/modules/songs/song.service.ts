@@ -32,7 +32,10 @@ export class SongService {
   }
 
   async aSong(id: string): Promise<Song> {
-    return await this.songRepository.findOne({ where: { id: id } });
+    return await this.songRepository.findOne({
+      where: { id: id },
+      relations: ['artists'],
+    });
   }
 
   async updateSong(id: string, songData: Song): Promise<Song> {

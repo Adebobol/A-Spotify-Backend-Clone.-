@@ -9,6 +9,7 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
+import { Album } from '../albums/album.entity';
 import { Artist } from '../artists/artist.entity';
 import { ArtistsController } from '../artists/artists.controller';
 
@@ -35,4 +36,7 @@ export class Song extends BaseEntity {
   @ManyToMany(() => Artist, (artist) => artist.releases)
   @JoinTable()
   artist: Artist[];
+
+  @ManyToOne(() => Album, (album) => album.songs)
+  album: Album;
 }

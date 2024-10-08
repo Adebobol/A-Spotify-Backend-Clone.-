@@ -6,6 +6,7 @@ import { ConfigService, ConfigModule } from '@nestjs/config';
 import { Artist } from 'src/modules/artists/artist.entity';
 import { Song } from 'src/modules/songs/song.entity';
 import 'dotenv/config';
+import { Album } from 'src/modules/albums/album.entity';
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
@@ -15,7 +16,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   autoLoadEntities: true,
-  entities: [Song, Artist],
+  entities: [Song, Artist, Album],
   synchronize: true,
 };
 
