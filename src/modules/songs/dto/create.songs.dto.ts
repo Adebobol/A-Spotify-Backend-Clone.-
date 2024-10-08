@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsAlpha, IsArray, IsNotEmpty, IsString } from 'class-validator';
 
 export class SongUploadDto {
   @IsNotEmpty()
@@ -12,4 +12,9 @@ export class SongUploadDto {
 
   @IsNotEmpty()
   stream: string;
+
+  @IsNotEmpty()
+  @IsArray()
+  // @IsString()
+  artistId: string[];
 }

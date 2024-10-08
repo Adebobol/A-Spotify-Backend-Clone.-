@@ -11,6 +11,8 @@ import { PlaylistsController } from './modules/playlists/playlists.controller';
 import { PlaylistsModule } from './modules/playlists/playlists.module';
 import { Song } from './modules/songs/song.entity';
 import 'dotenv/config';
+import { Artist } from './modules/artists/artist.entity';
+import { typeOrmConfig } from './config/typeorm.config';
 
 @Module({
   imports: [
@@ -18,18 +20,9 @@ import 'dotenv/config';
     ArtistsModule,
     AlbumsModule,
     PlaylistsModule,
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT),
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE,
-      entities: [Song],
-      synchronize: true,
-    }),
+    TypeOrmModule.forRoot(typeOrmConfig),
   ],
-  controllers: [AppController, ArtistsController, PlaylistsController],
-  providers: [AppService, ArtistsService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
