@@ -10,7 +10,14 @@ import {
   Put,
   UsePipes,
   ValidationPipe,
+  UseInterceptors,
+  UploadedFile,
+  ParseFilePipeBuilder,
+  HttpStatus,
 } from '@nestjs/common';
+import { AnyFilesInterceptor, FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 import { Artist } from '../artists/artist.entity';
 import { ArtistsService } from '../artists/artists.service';
 import { SongUploadDto } from './dto/create.songs.dto';
@@ -23,6 +30,37 @@ export class SongController {
     private songService: SongService,
     private artistService: ArtistsService,
   ) {}
+
+  @Post('upload-file')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './files',
+        filename: (req, file, callback) => {
+          const uniqueSuffix =
+            Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const ext = extname(file.originalname);
+          const filename = `${file.originalname}-${uniqueSuffix}${ext}`;
+          callback(null, filename);
+        },
+      }),
+    }),
+  )
+  async upload(
+    @UploadedFile(
+      new ParseFilePipeBuilder()
+        .addFileTypeValidator({ fileType: 'jpeg' })
+        // .addMaxSizeValidator({
+        //   maxSize: 8000,
+        // })
+        .build({
+          errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+        }),
+    )
+    file: Express.Multer.File,
+  ) {
+    console.log(file);
+  }
 
   @Post('upload-track')
   @UsePipes(ValidationPipe)

@@ -12,6 +12,7 @@ import {
 import { Album } from '../albums/album.entity';
 import { Artist } from '../artists/artist.entity';
 import { ArtistsController } from '../artists/artists.controller';
+import { Playlist } from '../playlists/playlist.entity';
 
 @Entity()
 export class Song extends BaseEntity {
@@ -39,4 +40,7 @@ export class Song extends BaseEntity {
 
   @ManyToOne(() => Album, (album) => album.songs)
   album: Album;
+
+  @ManyToOne(() => Playlist, (playlist) => playlist.playlistTracks)
+  playlist: Playlist;
 }

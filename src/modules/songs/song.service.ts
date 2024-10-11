@@ -4,11 +4,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SongUploadDto } from './dto/create.songs.dto';
 import { Artist } from '../artists/artist.entity';
+import { Playlist } from '../playlists/playlist.entity';
 
 @Injectable()
 export class SongService {
   constructor(
     @InjectRepository(Song) private readonly songRepository: Repository<Song>,
+    // private readonly playlistRepo: Repository<Playlist>,
   ) {}
 
   async uploadSong(songData: SongUploadDto, artis: Artist[]) {
@@ -34,7 +36,7 @@ export class SongService {
   async aSong(id: string): Promise<Song> {
     return await this.songRepository.findOne({
       where: { id: id },
-      relations: ['artists'],
+      relations: ['artist'],
     });
   }
 
@@ -51,4 +53,6 @@ export class SongService {
 
     return this.songRepository.delete(id);
   }
+
+  // async addSongToPlaylist() {}
 }

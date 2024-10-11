@@ -13,6 +13,11 @@ import { Song } from './modules/songs/song.entity';
 import 'dotenv/config';
 import { Artist } from './modules/artists/artist.entity';
 import { typeOrmConfig } from './config/typeorm.config';
+import { MulterModule } from '@nestjs/platform-express';
+import { UsersModule } from './modules/users/users.module';
+import { AuthService } from './modules/auth/auth.service';
+import { AuthController } from './modules/auth/auth.controller';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -21,8 +26,11 @@ import { typeOrmConfig } from './config/typeorm.config';
     AlbumsModule,
     PlaylistsModule,
     TypeOrmModule.forRoot(typeOrmConfig),
+    MulterModule.register({ dest: './uploads' }),
+    UsersModule,
+    AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, AuthController],
+  providers: [AppService, AuthService],
 })
 export class AppModule {}

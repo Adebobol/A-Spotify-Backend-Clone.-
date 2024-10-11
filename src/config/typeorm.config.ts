@@ -7,6 +7,8 @@ import { Artist } from 'src/modules/artists/artist.entity';
 import { Song } from 'src/modules/songs/song.entity';
 import 'dotenv/config';
 import { Album } from 'src/modules/albums/album.entity';
+import { Playlist } from 'src/modules/playlists/playlist.entity';
+import { User } from 'src/modules/users/user.entity';
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
@@ -16,7 +18,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   autoLoadEntities: true,
-  entities: [Song, Artist, Album],
+  entities: [Song, Artist, Album, Playlist, User],
   synchronize: true,
 };
 
